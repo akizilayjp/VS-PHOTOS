@@ -185,9 +185,9 @@ const PhotoUpload: React.FC = () => {
         {/* Photo Upload Area */}
         <Card sx={{ mb: 3 }}>
           <CardContent>
-            <Typography variant="h6" component="h2" gutterBottom>
-              Upload Photos
-            </Typography>
+          <Typography variant="h6" component="h2" gutterBottom>
+            Shipnavi3PL Photo Upload
+          </Typography>
             
             <Box
               {...getRootProps()}

@@ -67,7 +67,7 @@ app.use('/api/photos', photoRoutes);
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'ok', 
-    message: 'Client Database API is running',
+    message: 'Shipnavi3PL Database API is running',
     timestamp: new Date().toISOString()
   });
 });

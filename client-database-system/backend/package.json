@@ -1,5 +1,5 @@
 {
-  "name": "client-database-backend",
+  "name": "shipnavi3pl-database-backend",
   "version": "1.0.0",
   "description": "Backend API for client database system with photo management",
   "main": "src/index.js",

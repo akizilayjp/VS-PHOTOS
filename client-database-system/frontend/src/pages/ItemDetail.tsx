@@ -229,7 +229,7 @@ const ItemDetail: React.FC = () => {
           <CardContent>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
               <Typography variant="h6" component="h2">
-                Photos ({item.photos.length}/10)
+                Shipnavi3PL Photos ({item.photos.length}/10)
               </Typography>
               <Box>
                 {selectedPhotos.length > 0 && (

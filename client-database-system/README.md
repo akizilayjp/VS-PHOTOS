@@ -1,4 +1,4 @@
-# Client Database System
+# Shipnavi3PL Database
 
 A comprehensive web application for managing client data and photo collections. This system allows administrators to import item data via CSV files and upload photos, while clients can view their items and download photos.
 
@@ -267,3 +267,11 @@ For support and questions:
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
+
+## Branding
+
+This application is branded as **Shipnavi3PL Database** and includes:
+- Custom application name throughout frontend and backend
+- Branded API responses and headers
+- Consistent naming in package.json and configuration files
+- Professional 3PL (Third-Party Logistics) focused interface

@@ -2,6 +2,12 @@ import axios from 'axios'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
 
+// Add Shipnavi3PL branding to requests
+const getHeaders = () => ({
+  'Content-Type': 'application/json',
+  'X-Client-App': 'Shipnavi3PL-Database'
+})
+
 // Create axios instance
 const api = axios.create({
   baseURL: API_BASE_URL,

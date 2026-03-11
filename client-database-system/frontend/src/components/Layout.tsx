@@ -55,7 +55,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           )}
           
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Client Database System
+            Shipnavi3PL Database
           </Typography>
           
           <Typography variant="body2" sx={{ mr: 2 }}>

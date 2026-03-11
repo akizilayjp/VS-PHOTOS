@@ -101,9 +101,9 @@ const Dashboard: React.FC = () => {
   return (
     <Container maxWidth="xl">
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Welcome back, {user?.name}!
-        </Typography>
+          <Typography variant="h4" component="h1" gutterBottom>
+            Welcome to Shipnavi3PL Database
+          </Typography>
         <Typography variant="subtitle1" color="text.secondary" gutterBottom>
           View and manage your items and photos
         </Typography>

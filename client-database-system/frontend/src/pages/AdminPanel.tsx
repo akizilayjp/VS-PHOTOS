@@ -90,9 +90,9 @@ const AdminPanel: React.FC = () => {
   return (
     <Container maxWidth="xl">
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Admin Panel
-        </Typography>
+          <Typography variant="h4" component="h1" gutterBottom>
+            Shipnavi3PL Admin Panel
+          </Typography>
         <Typography variant="subtitle1" color="text.secondary" gutterBottom>
           Manage clients and import item data
         </Typography>
