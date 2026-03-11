@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Database System - Preview</title>
+    <style>
+        :root {
+            --primary-color: #1976d2;
+            --secondary-color: #dc004e;
+            --background-color: #f5f5f5;
+            --card-background: #ffffff;
+            --text-color: #333;
+            --text-secondary: #666;
+            --border-color: #ddd;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-buttons button {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+
+        .card {
+            background: var(--card-background);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background: #fafafa;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        /* Login/Register Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: #1565c0;
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background: #c2185b;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .item-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .item-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .item-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-details {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .item-stats {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .chip {
+            background: #e3f2fd;
+            color: var(--primary-color);
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Photo Gallery */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .photo-card {
+            position: relative;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .photo-card:hover .photo-overlay {
+            opacity: 1;
+        }
+
+        /* Admin Panel */
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background: #f0f7ff;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .photo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Client Database System</div>
+                <div class="nav-buttons">
+                    <button onclick="showSection('login')">Login</button>
+                    <button onclick="showSection('register')">Register</button>
+                    <button onclick="showSection('admin')">Admin Panel</button>
+                    <button onclick="showSection('dashboard')">Client Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Login Section -->
+        <div id="login" class="card" style="display: block;">
+            <div class="card-header">
+                <div class="card-title">Client Login</div>
+                <div class="card-subtitle">Sign in to access your items and photos</div>
+            </div>
+            <div class="card-content">
+                <form>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password">
+                    </div>
+                    <button type="button" class="btn" onclick="alert('Login functionality would be implemented here')">Sign In</button>
+                    <button type="button" class="btn btn-secondary" style="margin-left: 1rem;" onclick="showSection('register')">Don't have an account? Sign up</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Register Section -->
+        <div id="register" class="card" style="display: none;">
+            <div class="card-header">
+                <div class="card-title">Client Registration</div>
+                <div class="card-subtitle">Create your account to access the system</div>
+            </div>
+            <div class="card-content">
+                <form>
+                    <div class="form-group">
+                        <label for="reg-name">Full Name</label>
+                        <input type="text" id="reg-name" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Email Address</label>
+                        <input type="email" id="reg-email" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Password</label>
+                        <input type="password" id="reg-password" placeholder="Create a password">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-confirm">Confirm Password</label>
+                        <input type="password" id="reg-confirm" placeholder="Confirm your password">
+                    </div>
+                    <button type="button" class="btn" onclick="alert('Registration functionality would be implemented here')">Create Account</button>
+                    <button type="button" class="btn btn-secondary" style="margin-left: 1rem;" onclick="showSection('login')">Already have an account? Sign in</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div id="admin" class="card" style="display: none;">
+            <div class="card-header">
+                <div class="card-title">Admin Panel</div>
+                <div class="card-subtitle">Manage clients and import item data</div>
+            </div>
+            <div class="card-content">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <!-- CSV Import Section -->
+                    <div>
+                        <h3 style="margin-bottom: 1rem;">CSV Import</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                            Upload a CSV file to import item data. Required columns: SKU, Title
+                        </p>
+                        <div class="upload-area" onclick="document.getElementById('csv-file').click()">
+                            <div class="upload-icon">📁</div>
+                            <div style="font-weight: 600; margin-bottom: 0.5rem;">Drag & drop CSV file here</div>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                                or click to select file
+                            </div>
+                            <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-secondary);">
+                                Supports: CSV files (Max 10MB)
+                            </div>
+                        </div>
+                        <input type="file" id="csv-file" style="display: none;" accept=".csv">
+                        <button class="btn" style="margin-top: 1rem;" onclick="alert('CSV import functionality would be implemented here')">
+                            Import CSV
+                        </button>
+                    </div>
+
+                    <!-- Clients List -->
+                    <div>
+                        <h3 style="margin-bottom: 1rem;">Clients (3)</h3>
+                        <div style="display: grid; gap: 1rem;">
+                            <div class="item-card">
+                                <div class="item-title">John Smith</div>
+                                <div class="item-details">john.smith@example.com</div>
+                                <div class="item-stats">
+                                    <span class="chip">15 items</span>
+                                    <span style="color: var(--text-secondary);">Registered: Jan 15, 2024</span>
+                                </div>
+                            </div>
+                            <div class="item-card">
+                                <div class="item-title">Sarah Johnson</div>
+                                <div class="item-details">sarah.j@example.com</div>
+                                <div class="item-stats">
+                                    <span class="chip">8 items</span>
+                                    <span style="color: var(--text-secondary);">Registered: Feb 3, 2024</span>
+                                </div>
+                            </div>
+                            <div class="item-card">
+                                <div class="item-title">Mike Wilson</div>
+                                <div class="item-details">mike.w@example.com</div>
+                                <div class="item-stats">
+                                    <span class="chip">23 items</span>
+                                    <span style="color: var(--text-secondary);">Registered: Mar 1, 2024</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Client Dashboard -->
+        <div id="dashboard" class="card" style="display: none;">
+            <div class="card-header">
+                <div class="card-title">Welcome back, John!</div>
+                <div class="card-subtitle">View and manage your items and photos</div>
+            </div>
+            <div class="card-content">
+                <!-- Search Section -->
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr auto; gap: 1rem; margin-bottom: 1rem;">
+                        <input type="text" placeholder="Search items by SKU, title, barcode, or ASIN..." style="padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                        <select style="padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                            <option>All Fields</option>
+                            <option>SKU</option>
+                            <option>Title</option>
+                            <option>Barcode</option>
+                        </select>
+                        <button class="btn">Search</button>
+                    </div>
+                </div>
+
+                <!-- Items Grid -->
+                <div class="dashboard-grid">
+                    <div class="item-card">
+                        <div class="item-title">Wireless Headphones</div>
+                        <div class="item-details">
+                            <div><strong>SKU:</strong> WH-1000XM4</div>
+                            <div><strong>Barcode:</strong> 123456789</div>
+                        </div>
+                        <div class="item-stats">
+                            <span class="chip">10 photos</span>
+                            <span style="color: var(--text-secondary);">$299.99</span>
+                            <span style="color: var(--text-secondary);">In Stock: 50</span>
+                        </div>
+                        <button class="btn" style="margin-top: 1rem; width: 100%;" onclick="showItemDetail()">View Photos</button>
+                    </div>
+
+                    <div class="item-card">
+                        <div class="item-title">Bluetooth Speaker</div>
+                        <div class="item-details">
+                            <div><strong>SKU:</strong> BS-X200</div>
+                            <div><strong>ASIN:</strong> B0863FXWMY</div>
+                        </div>
+                        <div class="item-stats">
+                            <span class="chip">8 photos</span>
+                            <span style="color: var(--text-secondary);">$129.99</span>
+                            <span style="color: var(--text-secondary);">In Stock: 100</span>
+                        </div>
+                        <button class="btn" style="margin-top: 1rem; width: 100%;" onclick="showItemDetail()">View Photos</button>
+                    </div>
+
+                    <div class="item-card">
+                        <div class="item-title">Smart Watch</div>
+                        <div class="item-details">
+                            <div><strong>SKU:</strong> SW-5</div>
+                            <div><strong>FNSKU:</strong> X001234567</div>
+                        </div>
+                        <div class="item-stats">
+                            <span class="chip">5 photos</span>
+                            <span style="color: var(--text-secondary);">$199.99</span>
+                            <span style="color: var(--text-secondary);">In Stock: 75</span>
+                        </div>
+                        <button class="btn" style="margin-top: 1rem; width: 100%;" onclick="showItemDetail()">View Photos</button>
+                    </div>
+
+                    <div class="item-card">
+                        <div class="item-title">Wireless Earbuds</div>
+                        <div class="item-details">
+                            <div><strong>SKU:</strong> WE-PRO</div>
+                            <div><strong>HS Code:</strong> 8517.62</div>
+                        </div>
+                        <div class="item-stats">
+                            <span class="chip">0 photos</span>
+                            <span style="color: var(--text-secondary);">$149.99</span>
+                            <span style="color: var(--text-secondary);">In Stock: 200</span>
+                        </div>
+                        <button class="btn" style="margin-top: 1rem; width: 100%;" onclick="showItemDetail()">View Photos</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item Detail Preview -->
+        <div id="item-detail" class="card" style="display: none;">
+            <div class="card-header">
+                <div class="card-title">Wireless Headphones</div>
+                <div class="card-subtitle">SKU: WH-1000XM4 • 10 photos available</div>
+            </div>
+            <div class="card-content">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div>
+                        <h4>Item Details</h4>
+                        <div class="item-details" style="margin-top: 1rem;">
+                            <div><strong>SKU:</strong> WH-1000XM4</div>
+                            <div><strong>Barcode:</strong> 123456789</div>
+                            <div><strong>ASIN:</strong> B0863FXWMY</div>
+                            <div><strong>Price:</strong> $299.99</div>
+                            <div><strong>Quantity:</strong> 50</div>
+                            <div><strong>HS Code:</strong> 8517.62</div>
+                            <div><strong>Added:</strong> January 15, 2024</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Download Options</h4>
+                        <div style="margin-top: 1rem;">
+                            <button class="btn" style="margin-bottom: 1rem; width: 100%;">Download All Photos (ZIP)</button>
+                            <button class="btn btn-secondary" style="width: 100%;">Download Selected Photos</button>
+                        </div>
+                    </div>
+                </div>
+
+                <h4>Photo Gallery (10/10)</h4>
+                <div class="photo-grid">
+                    <div class="photo-card">
+                        <img src="https://via.placeholder.com/200x200/4a90e2/ffffff?text=Photo+1" alt="Product photo 1">
+                        <div class="photo-overlay">Click to view full size</div>
+                    </div>
+                    <div class="photo-card">
+                        <img src="https://via.placeholder.com/200x200/7ed321/ffffff?text=Photo+2" alt="Product photo 2">
+                        <div class="photo-overlay">Click to view full size</div>
+                    </div>
+                    <div class="photo-card">
+                        <img src="https://via.placeholder.com/200x200/f5a623/ffffff?text=Photo+3" alt="Product photo 3">
+                        <div class="photo-overlay">Click to view full size</div>
+                    </div>
+                    <div class="photo-card">
+                        <img src="https://via.placeholder.com/200x200/d0021b/ffffff?text=Photo+4" alt="Product photo 4">
+                        <div class="photo-overlay">Click to view full size</div>
+                    </div>
+                    <div class="photo-card">
+                        <img src="https://via.placeholder.com/200x200/9013fe/ffffff?text=Photo+5" alt="Product photo 5">
+                        <div class="photo-overlay">Click to view full size</div>
+                    </div>
+                    <div class="photo-card">
+                        <img src="https://via.placeholder.com/200x200/417505/ffffff?text=Photo+6" alt="Product photo 6">
+                        <div class="photo-overlay">Click to view full size</div>
+                    </div>
+                    <div class="photo-card">
+                        <img src="https://via.placeholder.com/200x200/b8e986/333333?text=Photo+7" alt="Product photo 7">
+                        <div class="photo-overlay">Click to view full size</div>
+                    </div>
+                    <div class="photo-card">
+                        <img src="https://via.placeholder.com/200x200/f8e71c/333333?text=Photo+8" alt="Product photo 8">
+                        <div class="photo-overlay">Click to view full size</div>
+                    </div>
+                    <div class="photo-card">
+                        <img src="https://via.placeholder.com/200x200/8b572a/ffffff?text=Photo+9" alt="Product photo 9">
+                        <div class="photo-overlay">Click to view full size</div>
+                    </div>
+                    <div class="photo-card">
+                        <img src="https://via.placeholder.com/200x200/50e3c2/333333?text=Photo+10" alt="Product photo 10">
+                        <div class="photo-overlay">Click to view full size</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('register').style.display = 'none';
+            document.getElementById('admin').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('item-detail').style.display = 'none';
+
+            // Show selected section
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        function showItemDetail() {
+            showSection('item-detail');
+        }
+
+        // Make upload area interactive
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadArea = document.querySelector('.upload-area');
+            const fileInput = document.getElementById('csv-file');
+
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#1976d2';
+                uploadArea.style.backgroundColor = '#f0f7ff';
+            });
+
+            uploadArea.addEventListener('dragleave', function() {
+                uploadArea.style.borderColor = '#ddd';
+                uploadArea.style.backgroundColor = '#ffffff';
+            });
+
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#ddd';
+                uploadArea.style.backgroundColor = '#ffffff';
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    fileInput.files = files;
+                    alert('File selected: ' + files[0].name);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
