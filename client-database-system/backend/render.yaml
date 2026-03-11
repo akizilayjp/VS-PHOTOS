@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: shipnavi3pl-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+      - key: PORT
+        value: 10000
+      - key: DB_HOST
+        fromDatabase:
+          name: shipnavi3pl-db
+          property: connectionString
+      - key: DB_NAME
+        fromDatabase:
+          name: shipnavi3pl-db
+          property: databaseName
+      - key: DB_USER
+        fromDatabase:
+          name: shipnavi3pl-db
+          property: databaseUser
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: shipnavi3pl-db
+          property: databasePassword
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        value: admin@shipnavi3pl.com
+      - key: CLIENT_URL
+        value: https://shipnavi3pl-frontend.onrender.com
+
+databases:
+  - name: shipnavi3pl-db
+    plan: free

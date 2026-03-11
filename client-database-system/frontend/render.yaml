@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: shipnavi3pl-frontend
+    env: static
+    plan: free
+    buildCommand: npm run build
+    publishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://shipnavi3pl-backend.onrender.com/api
